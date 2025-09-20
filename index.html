@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>EpisodeTalk Market - トップページ（デモ遷移付）</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f9f9f9; color:#333; }
+    header { background:#222; color:#fff; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+    header .btn { background:#007bff; border:none; padding:0.5rem 1rem; color:#fff; border-radius:4px; cursor:pointer; margin-left:0.5rem; }
+    .hero { text-align:center; padding:3rem 2rem; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .hero input { width:60%; padding:1rem; font-size:1.2rem; border-radius:8px; border:1px solid #ccc; }
+    h2 { margin:2rem 0 1rem 2rem; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:0 2rem 2rem; }
+    .card { background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .card h3 { margin:0.5rem 0; }
+    .price { color:#e67e22; font-weight:bold; }
+    .card button { background:#28a745; color:#fff; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; }
+    .card button:hover { background:#1e7e34; }
+    footer { background:#222; color:#aaa; text-align:center; padding:1rem; font-size:0.9rem; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>EpisodeTalk Market</strong></div>
+    <div>
+      <button class="btn">ログイン</button>
+      <button class="btn">投稿する</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <h1>エピソードトークを探す</h1>
+    <input type="text" placeholder="シチュエーションやキーワードで検索...">
+  </div>
+
+  <h2>おすすめトーク</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>初対面アイスブレイク話</h3>
+      <p>合コン / 1分 / クリーン</p>
+      <p class="price">¥30,000（独占）</p>
+      <button onclick="showDetail('icebreak')">詳細を見る</button>
+    </div>
+    <div class="card">
+      <h3>新人研修の大失敗</h3>
+      <p>会社飲み会 / 3分 / 観察系</p>
+      <p class="price">¥12,000（6か月独占）</p>
+      <button onclick="showDetail('training')">詳細を見る</button>
+    </div>
+    <div class="card">
+      <h3>披露宴のサプライズ</h3>
+      <p>披露宴 / 2分 / クリーン</p>
+      <p class="price">¥50,000（独占）</p>
+      <button onclick="showDetail('wedding')">詳細を見る</button>
+    </div>
+  </div>
+
+  <!-- 詳細ページ -->
+  <div id="detail" class="hidden" style="padding:2rem;">
+    <h2 id="detail-title"></h2>
+    <p id="detail-desc"></p>
+    <p class="price" id="detail-price"></p>
+    <button class="card button" onclick="goCheckout()">購入に進む</button>
+  </div>
+
+  <!-- チェックアウト -->
+  <div id="checkout" class="hidden" style="padding:2rem;">
+    <h3>購入手続き</h3>
+    <p id="checkout-item"></p>
+    <label><input type="radio" name="plan" checked> 独占譲渡</label><br>
+    <label><input type="radio" name="plan"> 6か月独占</label><br>
+    <button class="buy-button" onclick="completePurchase()">決済する</button>
+  </div>
+
+  <!-- 購入完了 -->
+  <div id="complete" class="hidden" style="padding:2rem;">
+    <h3>購入完了 🎉</h3>
+    <p>ありがとうございました！以下からダウンロードできます。</p>
+    <ul>
+      <li><a href="#" download>エピソード音声（MP3）</a></li>
+      <li><a href="#" download>台本PDF</a></li>
+      <li><a href="#" download>契約書PDF</a></li>
+    </ul>
+    <p style="font-size:12px;color:#666;">※ 独占譲渡の場合、このエピソードはマーケットから即時非公開となります。</p>
+  </div>
+
+  <footer>
+    <p>© 2025 EpisodeTalk Market | 利用規約 | プライバシー</p>
+  </footer>
+
+  <script>
+    function showDetail(type){
+      document.getElementById('detail').classList.remove('hidden');
+      document.getElementById('checkout').classList.add('hidden');
+      document.getElementById('complete').classList.add('hidden');
+      if(type==='icebreak'){
+        document.getElementById('detail-title').innerText = '初対面アイスブレイク話';
+        document.getElementById('detail-desc').innerText = '合コンの場で使える勘違い自己紹介ネタのプレビュー。';
+        document.getElementById('detail-price').innerText = '¥30,000（独占） / ¥12,000（6か月独占）';
+        document.getElementById('checkout-item').innerText = '初対面アイスブレイク話';
+      } else if(type==='training'){
+        document.getElementById('detail-title').innerText = '新人研修の大失敗';
+        document.getElementById('detail-desc').innerText = '新人時代の失敗談を笑いに変えるネタ。';
+        document.getElementById('detail-price').innerText = '¥12,000（6か月独占）';
+        document.getElementById('checkout-item').innerText = '新人研修の大失敗';
+      } else if(type==='wedding'){
+        document.getElementById('detail-title').innerText = '披露宴のサプライズ';
+        document.getElementById('detail-desc').innerText = '披露宴で感動と笑いを呼ぶ二段構えのネタ。';
+        document.getElementById('detail-price').innerText = '¥50,000（独占）';
+        document.getElementById('checkout-item').innerText = '披露宴のサプライズ';
+      }
+      window.scrollTo(0,0);
+    }
+    function goCheckout(){
+      document.getElementById('detail').classList.add('hidden');
+      document.getElementById('checkout').classList.remove('hidden');
+    }
+    function completePurchase(){
+      document.getElementById('checkout').classList.add('hidden');
+      document.getElementById('complete').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
