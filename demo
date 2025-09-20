@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>EpisodeTalk Market</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-green-600">EpisodeTalk Market</h1>
+    <div>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded mr-2">ログイン</button>
+      <button class="bg-green-500 text-white px-4 py-2 rounded">投稿する</button>
+    </div>
+  </header>
+
+  <!-- 人気エピソード スライダー -->
+  <section class="p-6 bg-white shadow mt-4">
+    <h2 class="text-xl font-semibold mb-4">人気のエピソード</h2>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide bg-gray-100 p-4 rounded shadow">合コンでの勘違い話</div>
+        <div class="swiper-slide bg-gray-100 p-4 rounded shadow">新人研修での大失敗</div>
+        <div class="swiper-slide bg-gray-100 p-4 rounded shadow">披露宴サプライズ</div>
+        <div class="swiper-slide bg-gray-100 p-4 rounded shadow">飲み会での神対応</div>
+        <div class="swiper-slide bg-gray-100 p-4 rounded shadow">面接での一発ギャグ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 検索 -->
+  <section class="text-center py-8">
+    <input type="text" placeholder="キーワードやタグで探す..." class="w-1/2 px-4 py-2 border rounded shadow">
+  </section>
+
+  <!-- エピソード一覧 -->
+  <main id="list-page" class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 pb-12">
+    <div class="bg-white rounded shadow hover:shadow-lg p-4">
+      <img src="https://via.placeholder.com/300x180" alt="Episode" class="rounded mb-3">
+      <h3 class="font-bold text-lg mb-1">初対面アイスブレイク話</h3>
+      <p class="text-sm text-gray-500 mb-2">投稿者：たけし</p>
+      <div class="flex flex-wrap gap-1 mb-2">
+        <span class="bg-gray-200 px-2 py-1 text-xs rounded">#合コン</span>
+        <span class="bg-gray-200 px-2 py-1 text-xs rounded">#クリーン</span>
+      </div>
+      <p class="text-green-600 font-semibold">¥30,000</p>
+      <button onclick="showDetail('icebreak')" class="mt-2 w-full bg-green-500 text-white py-2 rounded">詳細を見る</button>
+    </div>
+    <!-- 他のダミーも複数配置 -->
+  </main>
+
+  <!-- 詳細ページ -->
+  <section id="detail-page" class="hidden px-6 py-8">
+    <button onclick="backToList()" class="mb-4 text-blue-600">← 戻る</button>
+    <div class="bg-white rounded shadow p-6">
+      <img src="https://via.placeholder.com/600x300" alt="Episode" class="rounded mb-4">
+      <h2 id="detail-title" class="text-2xl font-bold mb-2"></h2>
+      <p id="detail-author" class="text-sm text-gray-500 mb-4"></p>
+      <div id="detail-tags" class="flex flex-wrap gap-2 mb-4"></div>
+      <p id="detail-desc" class="mb-4"></p>
+      <p class="blur-sm text-gray-400 mb-4">…オチ部分は購入後に表示されます…</p>
+      <p id="detail-price" class="text-green-600 font-semibold mb-4"></p>
+      <button onclick="goCheckout()" class="w-full bg-green-500 text-white py-2 rounded">購入する</button>
+    </div>
+  </section>
+
+  <!-- チェックアウトページ -->
+  <section id="checkout-page" class="hidden px-6 py-8">
+    <button onclick="backToDetail()" class="mb-4 text-blue-600">← 戻る</button>
+    <div class="bg-white rounded shadow p-6">
+      <h2 class="text-xl font-bold mb-4">購入手続き</h2>
+      <p id="checkout-item" class="mb-4"></p>
+      <label class="block mb-2"><input type="radio" name="plan" checked> 独占譲渡</label>
+      <label class="block mb-4"><input type="radio" name="plan"> 6か月独占</label>
+      <button onclick="completePurchase()" class="w-full bg-green-500 text-white py-2 rounded">決済する（ダミー）</button>
+    </div>
+  </section>
+
+  <!-- 購入完了ページ -->
+  <section id="complete-page" class="hidden text-center px-6 py-12">
+    <div class="bg-white rounded shadow p-8 inline-block">
+      <div class="text-green-500 text-6xl mb-4">✓</div>
+      <h2 class="text-2xl font-bold mb-4">購入ありがとうございました！</h2>
+      <p class="mb-6">以下からダウンロードできます。</p>
+      <ul class="text-blue-600 underline">
+        <li><a href="#" download>エピソード音声（MP3）</a></li>
+        <li><a href="#" download>台本PDF</a></li>
+        <li><a href="#" download>契約書PDF</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 text-center py-4 text-sm mt-8">
+    © 2025 EpisodeTalk Market | 利用規約 | プライバシー
+  </footer>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 20,
+      autoplay: { delay: 3000 },
+      loop: true,
+    });
+
+    function showDetail(type){
+      document.getElementById('list-page').classList.add('hidden');
+      document.getElementById('detail-page').classList.remove('hidden');
+      document.getElementById('checkout-page').classList.add('hidden');
+      document.getElementById('complete-page').classList.add('hidden');
+      if(type==='icebreak'){
+        document.getElementById('detail-title').innerText = '初対面アイスブレイク話';
+        document.getElementById('detail-author').innerText = '投稿者：たけし';
+        document.getElementById('detail-tags').innerHTML = '<span class="bg-gray-200 px-2 py-1 text-xs rounded">#合コン</span><span class="bg-gray-200 px-2 py-1 text-xs rounded">#クリーン</span>';
+        document.getElementById('detail-desc').innerText = '合コンの場で緊張した空気を一気に和ませる小ネタ。';
+        document.getElementById('detail-price').innerText = '¥30,000（独占） / ¥12,000（6か月独占）';
+        document.getElementById('checkout-item').innerText = '初対面アイスブレイク話';
+      }
+    }
+    function goCheckout(){
+      document.getElementById('detail-page').classList.add('hidden');
+      document.getElementById('checkout-page').classList.remove('hidden');
+    }
+    function completePurchase(){
+      document.getElementById('checkout-page').classList.add('hidden');
+      document.getElementById('complete-page').classList.remove('hidden');
+    }
+    function backToList(){
+      document.getElementById('list-page').classList.remove('hidden');
+      document.getElementById('detail-page').classList.add('hidden');
+    }
+    function backToDetail(){
+      document.getElementById('checkout-page').classList.add('hidden');
+      document.getElementById('detail-page').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
